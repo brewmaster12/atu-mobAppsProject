@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 export class HomePage {
   displayedMovies: any[] = [];
   keyword: string = "";
+  heading: string = "";
   api_key: string = "2bef00b6e8260141111bda3da66d2688";
 
   constructor(private mhs:MoviesService) {}
@@ -23,24 +24,25 @@ export class HomePage {
   }
 
   async getTrendingMovies() {
-
     const trendingOptions: HttpOptions = {
-    url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.api_key
-  }
-
+      url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.api_key
+    }
     const result = await this.mhs.get(trendingOptions);
     this.displayedMovies = result.data.results;
+    this.heading = "Today's Trending Movies";
   }
 
   async searchButton() {
-    
+    if (!this.keyword) {
+      this.getTrendingMovies();
+      return;
+    }
     const searchOptions: HttpOptions = {
       url: "https://api.themoviedb.org/3/search/movie?query=" + this.keyword + "&api_key=" + this.api_key
     }
-
     const result = await this.mhs.get(searchOptions);
     this.displayedMovies = result.data.results;
-    if (!this.keyword) this.getTrendingMovies();
+    this.heading = "Showing results for: " + this.keyword;
   }
 
 }
