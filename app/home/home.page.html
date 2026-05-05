@@ -8,17 +8,19 @@
 
 <ion-content [fullscreen]="true">
 
+  <!-- search bar and button -->
   <ion-input label="Search:" placeholder="Movie name" [(ngModel)]="keyword"></ion-input>
   <ion-button (click)="getSearch()">Search</ion-button>
 
+  <!-- dynamic heading -->
   <h4>{{heading}}</h4>
-  <ion-card *ngFor="let movie of displayedMovies">
-    <img src="https://image.tmdb.org/t/p/w200/{{movie.poster_path}}" />
-    <!-- <ion-card-header>
-      <ion-card-title>{{movie.title}}</ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-    </ion-card-header> -->
 
+  <!-- creates card for each movie in the displayedMovies array -->
+  <ion-card *ngFor="let movie of displayedMovies">
+    <!-- gets movie poster for each movie -->
+    <img src="https://image.tmdb.org/t/p/w200/{{movie.poster_path}}" />
+    <!-- show movie overview -->
     <ion-card-content>{{movie.overview}}</ion-card-content>
   </ion-card>
+
 </ion-content>
