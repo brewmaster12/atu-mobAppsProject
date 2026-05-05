@@ -12,26 +12,36 @@ import { FormsModule } from '@angular/forms';
   imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCardTitle, IonCardSubtitle, IonCardHeader, IonCardContent, IonCard, CommonModule, IonInput, FormsModule, IonButton],
 })
 export class HomePage {
-  trendingMovies: any;
+  displayedMovies: any[] = [];
   keyword: string = "";
-
-  options: HttpOptions = {
-    url: "https://api.themoviedb.org/3/trending/movie/day?api_key=2bef00b6e8260141111bda3da66d2688"
-  }
+  api_key: string = "2bef00b6e8260141111bda3da66d2688";
 
   constructor(private mhs:MoviesService) {}
 
   ngOnInit() {
-    this.trendingMovies = [];
-    this.getMovies();
+    this.getTrendingMovies();
   }
 
-  async getMovies() {
-    let result = await this.mhs.get(this.options);
-    console.log(result.data.results[1].title);
-    console.log(result.data.results); // ARRAY of trending movies
-    this.trendingMovies = result.data.results;
+  async getTrendingMovies() {
 
+    const trendingOptions: HttpOptions = {
+    url: "https://api.themoviedb.org/3/trending/movie/day?api_key=" + this.api_key
+  }
+
+    const result = await this.mhs.get(trendingOptions);
+    this.displayedMovies = result.data.results;
+  }
+
+  async searchButton() {
+    
+    const searchOptions: HttpOptions = {
+      url: "https://api.themoviedb.org/3/search/movie?query=" + this.keyword + "&api_key=" + this.api_key
+    }
+
+    const result = await this.mhs.get(searchOptions);
+    this.displayedMovies = result.data.results;
+    if (!this.keyword) this.getTrendingMovies();
   }
 
 }
+
