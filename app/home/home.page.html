@@ -9,7 +9,7 @@
 <ion-content [fullscreen]="true">
 
   <ion-input label="Search:" placeholder="Movie name" [(ngModel)]="keyword"></ion-input>
-  <ion-button (click)="searchButton()">Search</ion-button>
+  <ion-button (click)="getSearch()">Search</ion-button>
 
   <h4>{{heading}}</h4>
   <ion-card *ngFor="let movie of displayedMovies">

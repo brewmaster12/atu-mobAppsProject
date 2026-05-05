@@ -32,7 +32,7 @@ export class HomePage {
     this.heading = "Today's Trending Movies";
   }
 
-  async searchButton() {
+  async getSearch() {
     if (!this.keyword) {
       this.getTrendingMovies();
       return;
