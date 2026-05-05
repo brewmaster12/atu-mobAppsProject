@@ -1,18 +1,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      G00474316
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  
+  <ion-input label="Search:" placeholder="Movie name" [(ngModel)]="keyword"></ion-input>
+  <ion-button (click)="ngOnInit()">Search</ion-button>
+
+  <h4>Today's Trending Movies</h4>
   <ion-card *ngFor="let movie of trendingMovies">
     <img src="https://image.tmdb.org/t/p/w200/{{movie.poster_path}}" />
-    <ion-card-header>
+    <!-- <ion-card-header>
       <ion-card-title>{{movie.title}}</ion-card-title>
       <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-    </ion-card-header>
+    </ion-card-header> -->
 
     <ion-card-content>{{movie.overview}}</ion-card-content>
   </ion-card>
