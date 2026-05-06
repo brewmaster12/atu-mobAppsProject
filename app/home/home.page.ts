@@ -59,7 +59,7 @@ export class HomePage {
   }
 
   async openMovieDetails(id: number) {
-    await this.ds.set("movie_id", id);
+    await this.ds.set("id", id);
     this.router.navigate(['/movie-details']);
   }
 

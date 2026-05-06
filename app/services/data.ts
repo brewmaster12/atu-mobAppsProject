@@ -13,11 +13,11 @@ export class Data {
     await this.storage.create();
   }
 
-  async set(movie_id:string, value:any) {
-    await this.storage.set(movie_id, value);
+  async set(id:string, value:any) {
+    await this.storage.set(id, value);
   }
 
-  async get(movie_id:string) {
-    return await this.storage.get(movie_id);
+  async get(id:string) {
+    return await this.storage.get(id);
   }
 }

@@ -5,6 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, I
 import { Data } from '../services/data';
 import { MoviesService } from '../services/movies-service';
 import { HttpOptions } from '@capacitor/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-details',
@@ -22,7 +23,8 @@ export class MovieDetailsPage implements OnInit {
 
   constructor(
     private mhs:MoviesService,
-    private ds:Data
+    private ds:Data,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -30,7 +32,7 @@ export class MovieDetailsPage implements OnInit {
   }
 
   async getMovieId() {
-    this.movie_id = await this.ds.get('movie_id');
+    this.movie_id = await this.ds.get('id');
     this.getMovie();
     this.getMovieCredits();
   }
@@ -54,8 +56,9 @@ export class MovieDetailsPage implements OnInit {
     console.log(this.movie)
   }
 
-  openDetails() {
-    console.log("Opening details page ...");
+  async openDetails(person_id: number) {
+    await this.ds.set("id", person_id);
+    this.router.navigate(['/details']);
   }
 
 }

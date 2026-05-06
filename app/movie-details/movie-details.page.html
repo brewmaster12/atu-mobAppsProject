@@ -1,10 +1,10 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" *ngIf="movie">
   <ion-toolbar>
     <ion-title>{{movie.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="movieCredits">
+<ion-content [fullscreen]="true" *ngIf="movie && movieCredits">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">movie-details</ion-title>
@@ -12,15 +12,18 @@
   </ion-header>
 
   <p>{{movie.overview}}</p>
-
+  <p>[home]</p>
+  <p>[favs]</p>
+  <p>[add to favs]</p>
+  
   <h4>Cast</h4>
   <ion-card *ngFor="let cast of movieCredits.cast">
     <ion-card-header>
-      <img *ngIf="cast.profile_path" width="100px" src="https://image.tmdb.org/t/p/w200{{cast.profile_path}}" (click)="openDetails()"/>
-      <h5 *ngIf="!cast.profile_path" (click)="openDetails()"><em>No image</em></h5>
+      <img *ngIf="cast.profile_path" width="100px" src="https://image.tmdb.org/t/p/w200{{cast.profile_path}}" (click)="openDetails(cast.id)"/>
+      <h5 *ngIf="!cast.profile_path" (click)="openDetails(cast.id)"><em>No image</em></h5>
       
-      <ion-card-title>{{cast.character}}</ion-card-title>
-      <ion-card-subtitle>{{cast.name}}</ion-card-subtitle>
+      <ion-card-title>{{cast.name}}</ion-card-title>
+      <ion-card-subtitle>{{cast.character}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content></ion-card-content>
   </ion-card>
@@ -28,11 +31,11 @@
   <h4>Crew</h4>
   <ion-card *ngFor="let crew of movieCredits.crew">
     <ion-card-header>
-      <img *ngIf="crew.profile_path" width="100px" src="https://image.tmdb.org/t/p/w200{{crew.profile_path}}" (click)="openDetails()"/>
-      <h5 *ngIf="!crew.profile_path" (click)="openDetails()"><em>No image</em></h5>
+      <img *ngIf="crew.profile_path" width="100px" src="https://image.tmdb.org/t/p/w200{{crew.profile_path}}" (click)="openDetails(crew.id)"/>
+      <h5 *ngIf="!crew.profile_path" (click)="openDetails(crew.id)"><em>No image</em></h5>
 
-      <ion-card-title>{{crew.department}}</ion-card-title>
-      <ion-card-subtitle>{{crew.name}}</ion-card-subtitle>
+      <ion-card-title>{{crew.name}}</ion-card-title>
+      <ion-card-subtitle>{{crew.department}}</ion-card-subtitle>
     </ion-card-header>
     <ion-card-content></ion-card-content>
   </ion-card>
