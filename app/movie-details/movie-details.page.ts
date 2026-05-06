@@ -42,9 +42,7 @@ export class MovieDetailsPage implements OnInit {
       url: "https://api.themoviedb.org/3/movie/" + this.movie_id + "/credits?api_key=" + this.api_key
     }
     const result = await this.mhs.get(movieCreditsOptions);
-    console.log(result)
     this.movieCredits = result.data
-    console.log(this.movieCredits)
   }
 
   async getMovie() {
@@ -53,7 +51,6 @@ export class MovieDetailsPage implements OnInit {
     }
     const result = await this.mhs.get(movieOptions);
     this.movie = result.data
-    console.log(this.movie)
   }
 
   async openDetails(person_id: number) {
