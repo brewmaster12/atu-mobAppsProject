@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { Data } from '../services/data';
+import { MoviesService } from '../services/movies-service';
+import { HttpOptions } from '@capacitor/core';
 
 @Component({
   selector: 'app-movie-details',
@@ -12,9 +15,31 @@ import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/stan
 })
 export class MovieDetailsPage implements OnInit {
 
-  constructor() { }
+  movie_id:string = "";
+  api_key: string = "2bef00b6e8260141111bda3da66d2688";
+  movie:any;
+
+  constructor(
+    private mhs:MoviesService,
+    private ds:Data
+  ) { }
 
   ngOnInit() {
+    this.getMovieId();
+  }
+
+  async getMovieId() {
+    this.movie_id = await this.ds.get('movie_id');
+    this.getMovie();
+  }
+
+  async getMovie() {
+    const movieOptions: HttpOptions = {
+      url: "https://api.themoviedb.org/3/movie/" + this.movie_id + "/credits?api_key=" + this.api_key
+    }
+    const result = await this.mhs.get(movieOptions);
+    this.movie = result.data
+    console.log(this.movie)
   }
 
 }
