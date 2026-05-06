@@ -17,6 +17,7 @@ export class MovieDetailsPage implements OnInit {
 
   movie_id:string = "";
   api_key: string = "2bef00b6e8260141111bda3da66d2688";
+  movieCredits:any;
   movie:any;
 
   constructor(
@@ -31,11 +32,22 @@ export class MovieDetailsPage implements OnInit {
   async getMovieId() {
     this.movie_id = await this.ds.get('movie_id');
     this.getMovie();
+    this.getMovieCredits();
+  }
+
+  async getMovieCredits() {
+    const movieCreditsOptions: HttpOptions = {
+      url: "https://api.themoviedb.org/3/movie/" + this.movie_id + "/credits?api_key=" + this.api_key
+    }
+    const result = await this.mhs.get(movieCreditsOptions);
+    console.log(result)
+    this.movieCredits = result.data
+    console.log(this.movieCredits)
   }
 
   async getMovie() {
     const movieOptions: HttpOptions = {
-      url: "https://api.themoviedb.org/3/movie/" + this.movie_id + "/credits?api_key=" + this.api_key
+      url: "https://api.themoviedb.org/3/movie/" + this.movie_id + "?api_key=" + this.api_key
     }
     const result = await this.mhs.get(movieOptions);
     this.movie = result.data

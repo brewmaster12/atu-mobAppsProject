@@ -1,18 +1,20 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Movie details</ion-title>
+    <ion-title>{{movie.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="movie">
+<ion-content [fullscreen]="true" *ngIf="movieCredits">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">movie-details</ion-title>
     </ion-toolbar>
   </ion-header>
 
+  <p>{{movie.overview}}</p>
+
   <h4>Cast</h4>
-  <ion-card *ngFor="let cast of movie.cast">
+  <ion-card *ngFor="let cast of movieCredits.cast">
     <ion-card-header>
       <img *ngIf="cast.profile_path" width="100px" src="https://image.tmdb.org/t/p/w200{{cast.profile_path}}" (click)="openDetails()"/>
       <h5 *ngIf="!cast.profile_path" (click)="openDetails()"><em>No image</em></h5>
@@ -24,7 +26,7 @@
   </ion-card>
 
   <h4>Crew</h4>
-  <ion-card *ngFor="let crew of movie.crew">
+  <ion-card *ngFor="let crew of movieCredits.crew">
     <ion-card-header>
       <img *ngIf="crew.profile_path" width="100px" src="https://image.tmdb.org/t/p/w200{{crew.profile_path}}" (click)="openDetails()"/>
       <h5 *ngIf="!crew.profile_path" (click)="openDetails()"><em>No image</em></h5>
