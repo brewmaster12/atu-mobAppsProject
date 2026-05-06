@@ -4,12 +4,16 @@ import { MoviesService } from '../services/movies-service';
 import { HttpOptions } from '@capacitor/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Data } from '../services/data';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonCardContent, IonCard, CommonModule, IonInput, FormsModule, IonButton],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, 
+    IonCardContent, IonCard, CommonModule, IonInput, 
+    FormsModule, IonButton],
 })
 
 export class HomePage {
@@ -18,7 +22,11 @@ export class HomePage {
   heading: string = ""; // for dynamic headings
   api_key: string = "2bef00b6e8260141111bda3da66d2688";
 
-  constructor(private mhs:MoviesService) {}
+  constructor(
+    private mhs:MoviesService,
+    private ds:Data,
+    private router: Router
+  ) {}
 
   // on page load
   ngOnInit() {
@@ -48,6 +56,11 @@ export class HomePage {
     const result = await this.mhs.get(searchOptions);
     this.displayedMovies = result.data.results; // assign search result movies to the array to be displayed
     this.heading = "Showing results for: " + this.keyword; // dynamic heading
+  }
+
+  async openMovieDetails(id: number) {
+    await this.ds.set("movie_id", id);
+    this.router.navigate(['/movie-details']);
   }
 
 }
