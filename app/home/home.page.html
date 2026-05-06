@@ -18,7 +18,7 @@
   <!-- creates card for each movie in the displayedMovies array -->
   <ion-card *ngFor="let movie of displayedMovies">
     <!-- gets movie poster for each movie; image links to movie-details page on click -->
-    <img src="https://image.tmdb.org/t/p/w200/{{movie.poster_path}}" (click)="openMovieDetails(movie.id)"/>
+    <img src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}" (click)="openMovieDetails(movie.id)"/>
     <!-- show movie overview -->
     <ion-card-content>{{movie.overview}}</ion-card-content>
   </ion-card>
