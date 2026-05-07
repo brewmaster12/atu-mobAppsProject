@@ -69,26 +69,31 @@ export class HomePage {
 
   // genre search
   async getGenreSearch(genreKeyword:string) {
+    // cleance keyword
     const keyword = genreKeyword.replace("genre:", "").trim();
+    // get API id for the genre entered
     const genre_id = await this.getGenreId(keyword);
     const genreSearchOptions: HttpOptions = {
       url: "https://api.themoviedb.org/3/discover/movie?api_key=" + this.api_key + "&with_genres=" + genre_id
     }
     const result = await this.mhs.get(genreSearchOptions);
-    console.log(result);
     this.displayedMovies = result.data.results;
-    this.heading = "Showing results by genre: " + keyword; // dynamic heading
+    this.heading = "Showing results by genre: " + keyword;
   }
 
+  // get genre id for the API
   async getGenreId(keyword:string) {
+    // gets the list of genres from the API
     const genreOptions: HttpOptions = {
       url: "https://api.themoviedb.org/3/genre/movie/list?api_key=" + this.api_key
     }
     const result = await this.mhs.get(genreOptions);
     const genreList = result.data.genres;
+    // finds the object element in the genre list that matches the keyword
     const genre = genreList.find((g: any) => 
         g.name.toLowerCase() === keyword.toLowerCase()
     );
+    // return the id of the genre
     return genre.id;
   }
 
