@@ -13,7 +13,9 @@
   </ion-header>
 
   <p>{{movie.overview}}</p>
-  <p>[add to favs]</p>
+  
+  <!-- adds movie to favourites in storage -->
+  <ion-button (click)="addToFavourites(movie.id)">add to favourites</ion-button>
 
   <!-- favourites button -->
   <ion-button fill="clear" (click)="openFavourites()">

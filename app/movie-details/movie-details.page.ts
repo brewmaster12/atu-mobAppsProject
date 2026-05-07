@@ -74,4 +74,13 @@ export class MovieDetailsPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  async addToFavourites(movie_id:string) {
+    let favourites = await this.ds.get("favourites");
+    if (!favourites) {
+      favourites = [];
+    }
+    favourites.push(movie_id);
+    await this.ds.set("favourites", favourites)
+  }
+
 }

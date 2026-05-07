@@ -1,13 +1,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>favourites</ion-title>
+    <ion-title>Favourites</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">favourites</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" *ngIf="favourites">
+
+  <!-- home button -->
+  <ion-button fill="clear" (click)="openHome()">
+    <ion-icon slot="icon-only" name="home" size="large" color="primary"></ion-icon>
+  </ion-button>
+  
+  <!-- creates card for each movie in the displayedMovies array -->
+  <ion-card *ngFor="let movie of favourites">
+    <!-- gets movie poster for each movie; shows "No image" if none is available -->
+    <img *ngIf="movie.poster_path" src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}"/>
+    <h5 *ngIf="!movie.poster_path"><em>No image</em></h5>
+    <!-- show movie overview -->
+    <ion-card-content>{{movie.overview}}</ion-card-content>
+  </ion-card>
+
 </ion-content>
