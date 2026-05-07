@@ -8,11 +8,14 @@
 
 <ion-content [fullscreen]="true">
 
-  <p>[favs]</p>
-
   <!-- search bar and button -->
   <ion-input label="Search:" placeholder="Movie name" [(ngModel)]="keyword"></ion-input>
   <ion-button (click)="getSearch()">Search</ion-button>
+
+  <!-- favourites button -->
+  <ion-button fill="clear" (click)="openFavourites()">
+    <ion-icon slot="icon-only" name="heart" size="large" color="primary"></ion-icon>
+  </ion-button>
 
   <!-- dynamic heading -->
   <h4>{{heading}}</h4>

@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonLabel, IonItem, IonList } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonLabel, IonItem, IonList, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { Data } from '../services/data';
 import { MoviesService } from '../services/movies-service';
 import { HttpOptions } from '@capacitor/core';
+import { Router } from '@angular/router';
+import { addIcons } from 'ionicons';
+import { heart, home } from 'ionicons/icons';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
   styleUrls: ['./details.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonLabel, IonItem, IonList]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonLabel, IonItem, IonList, IonButton, IonIcon]
 })
 export class DetailsPage implements OnInit {
 
@@ -23,7 +26,10 @@ export class DetailsPage implements OnInit {
   constructor(
       private mhs:MoviesService,
       private ds:Data,
-    ) {}
+      private router: Router
+    ) {
+      addIcons({ heart, home });  // for icons
+    }
 
   ngOnInit() {
     this.getPersonId();
@@ -53,6 +59,14 @@ export class DetailsPage implements OnInit {
     const result = await this.mhs.get(personCreditsOptions);
     this.credits = result.data;
     console.log(this.credits)
+  }
+
+  openFavourites() {
+    this.router.navigate(['/favourites']);
+  }
+
+  openHome() {
+    this.router.navigate(['/home']);
   }
 
 }

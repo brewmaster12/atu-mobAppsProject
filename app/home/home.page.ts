@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCardContent, IonCard, IonInput, IonButton } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCardContent, IonCard, IonInput, IonButton, IonIcon } from '@ionic/angular/standalone';
 import { MoviesService } from '../services/movies-service';
 import { HttpOptions } from '@capacitor/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Data } from '../services/data';
 import { Router } from '@angular/router';
+import { addIcons } from 'ionicons';
+import { heart } from 'ionicons/icons';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, 
-    IonCardContent, IonCard, CommonModule, IonInput, 
-    FormsModule, IonButton],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent,
+    IonCardContent, IonCard, CommonModule, IonInput,
+    FormsModule, IonButton, IonIcon],
 })
 
 export class HomePage {
@@ -26,7 +28,9 @@ export class HomePage {
     private mhs:MoviesService,
     private ds:Data,
     private router: Router
-  ) {}
+  ) {
+    addIcons({ heart });  // for favourites icon
+  }
 
   // on page load
   ngOnInit() {
@@ -62,6 +66,10 @@ export class HomePage {
   async openMovieDetails(movie_id: number) {
     await this.ds.set("id", movie_id);
     this.router.navigate(['/movie-details']);
+  }
+
+  openFavourites() {
+    this.router.navigate(['/favourites']);
   }
 
 }

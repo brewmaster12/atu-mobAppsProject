@@ -13,6 +13,16 @@
     </ion-toolbar>
   </ion-header>
 
+  <!-- favourites button -->
+  <ion-button fill="clear" (click)="openFavourites()">
+    <ion-icon slot="icon-only" name="heart" size="large" color="primary"></ion-icon>
+  </ion-button>
+
+  <!-- home button -->
+  <ion-button fill="clear" (click)="openHome()">
+    <ion-icon slot="icon-only" name="home" size="large" color="primary"></ion-icon>
+  </ion-button>
+
   <ion-card>
     <ion-card-header>
       <!-- person's image; or no "No image" if none is available -->
