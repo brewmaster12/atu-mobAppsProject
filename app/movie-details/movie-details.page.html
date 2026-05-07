@@ -15,8 +15,8 @@
   <p>{{movie.overview}}</p>
   
   <!-- adds movie to favourites in storage -->
-  <ion-button (click)="addToFavourites(movie.id)">add to favourites</ion-button>
-  <ion-button (click)="removeFromFavourites(movie.id)">remove favourites</ion-button>
+  <ion-button *ngIf="!isFavourite" color="primary" (click)="addToFavourites(movie.id)">ADD TO FAVOURITES</ion-button>
+  <ion-button *ngIf="isFavourite" color="danger" (click)="removeFromFavourites(movie.id)">REMOVE FROM FAVOURITES</ion-button>
 
 
   <!-- favourites button -->

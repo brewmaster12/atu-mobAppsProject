@@ -22,6 +22,7 @@ export class MovieDetailsPage implements OnInit {
   api_key: string = "2bef00b6e8260141111bda3da66d2688";
   movie:any;
   movieCredits:any;
+  isFavourite:boolean = false;
   
   constructor(
     private mhs:MoviesService,
@@ -45,6 +46,7 @@ export class MovieDetailsPage implements OnInit {
     this.movie_id = await this.ds.get('id');
     this.getMovie();
     this.getMovieCredits();
+    this.checkIfFavourite();
   }
 
   // gets movie data from API
@@ -79,6 +81,15 @@ export class MovieDetailsPage implements OnInit {
     this.router.navigate(['/home']);
   }
 
+  async checkIfFavourite() {
+    // fetches favourites from storage
+    let favourites = await this.ds.get("favourites");
+    // if it does not exist, do nothing
+    if (!favourites) return;
+    // assign isFavourite to whether favourites includes the movie id
+    this.isFavourite = favourites.includes(this.movie_id);
+  }
+
   async addToFavourites(movie_id:string) {
     // fetches favourites from storage
     let favourites = await this.ds.get("favourites");
@@ -89,20 +100,22 @@ export class MovieDetailsPage implements OnInit {
     // add the movie id to the array
     favourites.push(movie_id);
     // send the array back to storage
-    await this.ds.set("favourites", favourites)
+    await this.ds.set("favourites", favourites);
+    // update isFavourite
+    this.isFavourite = true;
   }
 
   async removeFromFavourites(movie_id:string) {
     // fetches favourites from storage
     let favourites = await this.ds.get("favourites");
     // if it does not exist yet, do nothing
-    if (!favourites) {
-      return;
-    }
+    if (!favourites) return;
     // filters favourites array of the specified id
     const updatedFavourites = favourites.filter((id: string) => id !== movie_id);
     // send the array back to storage
-    await this.ds.set("favourites", updatedFavourites)
+    await this.ds.set("favourites", updatedFavourites);
+    // update isFavourite
+    this.isFavourite = false;
   }
 
 }
