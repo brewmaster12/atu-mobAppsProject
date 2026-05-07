@@ -54,7 +54,7 @@ export class DetailsPage implements OnInit {
   // gets person's movie credits from API (different object to the person itself with different URL)
   async getPersonCredits() {
     const personCreditsOptions: HttpOptions = {
-      url: "https://api.themoviedb.org/3/person/" + this.person_id + "/combined_credits" + "?api_key=" + this.api_key
+      url: "https://api.themoviedb.org/3/person/" + this.person_id + "/movie_credits" + "?api_key=" + this.api_key
     }
     const result = await this.mhs.get(personCreditsOptions);
     this.credits = result.data;
