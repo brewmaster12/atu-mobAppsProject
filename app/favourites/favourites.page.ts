@@ -30,6 +30,11 @@ export class FavouritesPage implements OnInit {
 
   // on page load
   ngOnInit() {
+    this.ionViewWillEnter();
+  }
+
+  // this runs every time the page is opened, not just when first opened like ngOnInit()
+  ionViewWillEnter() {
     this.getFavourites();
   }
 
@@ -49,6 +54,7 @@ export class FavouritesPage implements OnInit {
     console.log(this.favourites);
   }
 
+  // navigates to home page
   openHome() {
     this.router.navigate(['/home']);
   }
