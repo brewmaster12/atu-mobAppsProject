@@ -36,7 +36,7 @@ export class MovieDetailsPage implements OnInit {
   ngOnInit() {
   }
 
-  // this runs every time the page is opened, not just when first opened like ngOnInit()
+  // this runs every time the page is opened, not just when first loaded like ngOnInit()
   ionViewWillEnter() {
     this.getMovieId();
   }

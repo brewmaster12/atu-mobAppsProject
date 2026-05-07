@@ -14,10 +14,9 @@
 
   <p>{{movie.overview}}</p>
   
-  <!-- adds movie to favourites in storage -->
+  <!-- adds or removes from favourites; toggles whether already added -->
   <ion-button *ngIf="!isFavourite" color="primary" (click)="addToFavourites(movie.id)">ADD TO FAVOURITES</ion-button>
   <ion-button *ngIf="isFavourite" color="danger" (click)="removeFromFavourites(movie.id)">REMOVE FROM FAVOURITES</ion-button>
-
 
   <!-- favourites button -->
   <ion-button fill="clear" (click)="openFavourites()">
@@ -37,11 +36,12 @@
         <img *ngIf="cast.profile_path"
         src="https://image.tmdb.org/t/p/w200{{cast.profile_path}}"
         (click)="openDetails(cast.id)"/> <!-- click iimage to open details page with person id -->
-        
       </ion-button>
-      <!-- show "No image" if none available -->
-      <h5 *ngIf="!cast.profile_path" (click)="openDetails(cast.id)"><em>No image</em></h5>
-      
+      <ion-button fill="clear">
+        <!-- show "No image" if none available -->
+        <h5 *ngIf="!cast.profile_path" (click)="openDetails(cast.id)"><em>No image</em></h5>
+      </ion-button>
+
       <ion-card-title>{{cast.name}}</ion-card-title>
       <ion-card-subtitle>{{cast.character}}</ion-card-subtitle>
   </ion-card>
@@ -49,17 +49,19 @@
   <h4>Crew</h4>
   <!-- generate card for each crew member -->
   <ion-card *ngFor="let crew of movieCredits.crew">
-    <ion-card-header>
-        <!-- crew member's image -->
-        <img *ngIf="crew.profile_path" width="100px"
-        src="https://image.tmdb.org/t/p/w200{{crew.profile_path}}"
-        (click)="openDetails(crew.id)"/> <!-- click image to open details page with person id -->
-      <!-- show "No image" if none available -->
-      <h5 *ngIf="!crew.profile_path" (click)="openDetails(crew.id)"><em>No image</em></h5>
+        <ion-button fill="clear">
+          <!-- crew member's image -->
+          <img *ngIf="crew.profile_path" width="100px"
+          src="https://image.tmdb.org/t/p/w200{{crew.profile_path}}"
+          (click)="openDetails(crew.id)"/> <!-- click image to open details page with person id -->
+        </ion-button>
+      <ion-button fill="clear">
+        <!-- show "No image" if none available -->
+        <h5 *ngIf="!crew.profile_path" (click)="openDetails(crew.id)"><em>No image</em></h5>
+      </ion-button>
 
       <ion-card-title>{{crew.name}}</ion-card-title>
       <ion-card-subtitle>{{crew.job}}</ion-card-subtitle>
-    </ion-card-header>
   </ion-card>
   
 
