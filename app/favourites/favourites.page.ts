@@ -14,7 +14,7 @@ import { HttpOptions } from '@capacitor/core';
   templateUrl: './favourites.page.html',
   styleUrls: ['./favourites.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonIcon, IonButton, IonCardHeader, IonCardTitle]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonIcon, IonButton, IonCardTitle]
 })
 export class FavouritesPage implements OnInit {
   favourites:any;
