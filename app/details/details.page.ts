@@ -32,6 +32,10 @@ export class DetailsPage implements OnInit {
     }
 
   ngOnInit() {
+  }
+ 
+  // this runs every time the page is opened, not just when first loaded like ngOnInit()
+  ionViewWillEnter() {
     this.getPersonId();
   }
 
@@ -67,6 +71,12 @@ export class DetailsPage implements OnInit {
 
   openHome() {
     this.router.navigate(['/home']);
+  }
+
+  // sends movie's id to storage and opens movie-details page
+  async openMovieDetails(movie_id: number) {
+    await this.ds.set("id", movie_id);
+    this.router.navigate(['/movie-details']);
   }
 
 }

@@ -49,6 +49,11 @@
     <!-- generates list item for each movie in person's cast and crew credits -->
     <ion-item *ngFor="let movie of credits.cast">
       <ion-label>{{movie.title}}</ion-label>
+      <!-- gets movie poster for each movie; shows "No image" if none is available -->
+      <ion-button fill="clear">
+        <img *ngIf="movie.poster_path" (click)="openMovieDetails(movie.id)"  height="100px" src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}"/>
+        <h5 *ngIf="!movie.poster_path" (click)="openMovieDetails(movie.id)"><em>No image</em></h5>
+      </ion-button>
     </ion-item>
     <ion-item *ngFor="let movie of credits.crew">
       <ion-label>{{movie.title}}</ion-label>
