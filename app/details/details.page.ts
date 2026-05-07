@@ -29,12 +29,14 @@ export class DetailsPage implements OnInit {
     this.getPersonId();
   }
 
+  // gets id value from storage and assigns as person_id
   async getPersonId() {
     this.person_id = await this.ds.get('id');
     this.getPersonData();
     this.getPersonCredits();
   }
 
+  // gets person's data from API
   async getPersonData() {
     const personDataOptions: HttpOptions = {
       url: "https://api.themoviedb.org/3/person/" + this.person_id + "?api_key=" + this.api_key
@@ -43,6 +45,7 @@ export class DetailsPage implements OnInit {
     this.person = result.data
   }
 
+  // gets person's movie credits from API (different object to the person itself with different URL)
   async getPersonCredits() {
     const personCreditsOptions: HttpOptions = {
       url: "https://api.themoviedb.org/3/person/" + this.person_id + "/combined_credits" + "?api_key=" + this.api_key

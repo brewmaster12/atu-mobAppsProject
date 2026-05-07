@@ -58,6 +58,7 @@ export class HomePage {
     this.heading = "Showing results for: " + this.keyword; // dynamic heading
   }
 
+  // sends movie's id to storage and opens movie-details page
   async openMovieDetails(movie_id: number) {
     await this.ds.set("id", movie_id);
     this.router.navigate(['/movie-details']);

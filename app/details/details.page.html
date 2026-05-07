@@ -1,3 +1,4 @@
+<!-- *ngIf waits for person variable before loading page -->
 <ion-header [translucent]="true" *ngIf="person">
   <ion-toolbar>
     <ion-title>{{person.name}}</ion-title>
@@ -14,24 +15,27 @@
 
   <ion-card>
     <ion-card-header>
-      
+      <!-- person's image; or no "No image" if none is available -->
       <img *ngIf="person.profile_path" width="100px" src="https://image.tmdb.org/t/p/w200{{person.profile_path}}"/>
       <h5 *ngIf="!person.profile_path"><em>No image</em></h5>
-        
 
+      <!-- Birth and death days -->
       <ion-card-title>{{person.birthday}} - {{person.deathday}}</ion-card-title>
       <ion-card-subtitle>Also known as:
         <ul>
+          <!-- generates list item for each name -->
           <li *ngFor="let name of person.also_known_as">{{name}}</li>
         </ul>
       </ion-card-subtitle>
     </ion-card-header>
 
+    <!-- peron's biography -->
     <ion-card-content>{{person.biography}}</ion-card-content>
   </ion-card>
 
   <h4>Other movies:</h4>
   <ion-list>
+    <!-- generates list item for each movie in person's cast and crew credits -->
     <ion-item *ngFor="let movie of credits.cast">
       <ion-label>{{movie.title}}</ion-label>
     </ion-item>

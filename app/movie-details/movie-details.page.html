@@ -1,3 +1,4 @@
+<!-- *ngIf waits for movie variable before loading page -->
 <ion-header [translucent]="true" *ngIf="movie">
   <ion-toolbar>
     <ion-title>{{movie.title}}</ion-title>
@@ -17,9 +18,15 @@
   <p>[add to favs]</p>
   
   <h4>Cast</h4>
+  <!-- generate card for each cast member -->
   <ion-card *ngFor="let cast of movieCredits.cast">
     <ion-card-header>
-      <img *ngIf="cast.profile_path" width="100px" src="https://image.tmdb.org/t/p/w200{{cast.profile_path}}" (click)="openDetails(cast.id)"/>
+      <!-- person's image -->
+      <img *ngIf="cast.profile_path" width="100px" 
+      src="https://image.tmdb.org/t/p/w200{{cast.profile_path}}" 
+      (click)="openDetails(cast.id)"/> <!-- click iimage to open details page with person id -->
+      
+      <!-- show "No image" if none available -->
       <h5 *ngIf="!cast.profile_path" (click)="openDetails(cast.id)"><em>No image</em></h5>
       
       <ion-card-title>{{cast.name}}</ion-card-title>
@@ -29,9 +36,15 @@
   </ion-card>
 
   <h4>Crew</h4>
+  <!-- generate card for each crew member -->
   <ion-card *ngFor="let crew of movieCredits.crew">
     <ion-card-header>
-      <img *ngIf="crew.profile_path" width="100px" src="https://image.tmdb.org/t/p/w200{{crew.profile_path}}" (click)="openDetails(crew.id)"/>
+      <!-- crew member's image -->
+      <img *ngIf="crew.profile_path" width="100px" 
+      src="https://image.tmdb.org/t/p/w200{{crew.profile_path}}" 
+      (click)="openDetails(crew.id)"/> <!-- click image to open details page with person id -->
+
+      <!-- show "No image" if none available -->
       <h5 *ngIf="!crew.profile_path" (click)="openDetails(crew.id)"><em>No image</em></h5>
 
       <ion-card-title>{{crew.name}}</ion-card-title>
