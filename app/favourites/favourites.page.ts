@@ -30,7 +30,6 @@ export class FavouritesPage implements OnInit {
 
   // on page load
   ngOnInit() {
-    this.ionViewWillEnter();
   }
 
   // this runs every time the page is opened, not just when first opened like ngOnInit()
