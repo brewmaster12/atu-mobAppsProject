@@ -13,11 +13,12 @@
   
   <!-- creates card for each movie in the displayedMovies array -->
   <ion-card *ngFor="let movie of favourites">
-    <!-- gets movie poster for each movie; shows "No image" if none is available -->
-    <img *ngIf="movie.poster_path" src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}"/>
-    <h5 *ngIf="!movie.poster_path"><em>No image</em></h5>
-    <!-- show movie overview -->
-    <ion-card-content>{{movie.overview}}</ion-card-content>
+      <!-- gets movie poster for each movie; shows "No image" if none is available -->
+      <img *ngIf="movie.poster_path" src="https://image.tmdb.org/t/p/w200{{movie.poster_path}}"/>
+      <h5 *ngIf="!movie.poster_path"><em>No image</em></h5>
+      <!-- show movie overview -->
+      <ion-card-title>{{movie.title}}</ion-card-title>
+      <ion-button (click)="openMovieDetails(movie.id)">DETAILS</ion-button>
   </ion-card>
 
 </ion-content>

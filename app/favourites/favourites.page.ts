@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonIcon, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardContent, IonIcon, IonButton, IonCardHeader, IonCardTitle } from '@ionic/angular/standalone';
 import { Data } from '../services/data';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';
@@ -14,7 +14,7 @@ import { HttpOptions } from '@capacitor/core';
   templateUrl: './favourites.page.html',
   styleUrls: ['./favourites.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonCardContent, IonIcon, IonButton]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonCard, IonIcon, IonButton, IonCardHeader, IonCardTitle]
 })
 export class FavouritesPage implements OnInit {
   favourites:any;
@@ -57,6 +57,12 @@ export class FavouritesPage implements OnInit {
   // navigates to home page
   openHome() {
     this.router.navigate(['/home']);
+  }
+
+  // sends movie's id to storage and opens movie-details page
+  async openMovieDetails(movie_id: number) {
+    await this.ds.set("id", movie_id);
+    this.router.navigate(['/movie-details']);
   }
 
 }
