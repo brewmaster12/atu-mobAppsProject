@@ -39,19 +39,19 @@ export class FavouritesPage implements OnInit {
   }
 
   async getFavourites() {
-    this.favourites = [];
-    let favouritesIDs = await this.ds.get('favourites');
-    if (favouritesIDs) {
-      for (let id of favouritesIDs) {
+    this.favourites = []; // clears favourites variable and sets as empty array
+    let favouritesIDs = await this.ds.get('favourites'); // stores movie id's from storage in array
+    if (favouritesIDs) { // only runs if favourites have been added
+      for (let id of favouritesIDs) { // loops through the movie id's added to favourites in storage
+        // fetches movie with id for each favourite
         const favouriteOptions: HttpOptions = {
           url: "https://api.themoviedb.org/3/movie/" + id + "?api_key=" + this.api_key
         }
         const result = await this.mhs.get(favouriteOptions);
         const movie = result.data;
-        this.favourites.push(movie);
+        this.favourites.push(movie); // pushes the movie to the favourites array
       }
     }
-    console.log(this.favourites);
   }
 
   // navigates to home page

@@ -75,12 +75,29 @@ export class MovieDetailsPage implements OnInit {
   }
 
   async addToFavourites(movie_id:string) {
+    // fetches favourites from storage
     let favourites = await this.ds.get("favourites");
+    // if it does not exist yet, make an empty array
     if (!favourites) {
       favourites = [];
     }
+    // add the movie id to the array
     favourites.push(movie_id);
+    // send the array back to storage
     await this.ds.set("favourites", favourites)
+  }
+
+  async removeFromFavourites(movie_id:string) {
+    // fetches favourites from storage
+    let favourites = await this.ds.get("favourites");
+    // if it does not exist yet, do nothing
+    if (!favourites) {
+      return;
+    }
+    // filters favourites array of the specified id
+    const updatedFavourites = favourites.filter((id: string) => id !== movie_id);
+    // send the array back to storage
+    await this.ds.set("favourites", updatedFavourites)
   }
 
 }
