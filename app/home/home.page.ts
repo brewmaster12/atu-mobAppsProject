@@ -54,12 +54,42 @@ export class HomePage {
       this.getTrendingMovies();
       return;
     }
+    // if search starts with "genre:" do a genre search instead
+    if (this.keyword.startsWith("genre:")) {
+      this.getGenreSearch(this.keyword);
+      return;
+    }
     const searchOptions: HttpOptions = {
       url: "https://api.themoviedb.org/3/search/movie?query=" + this.keyword + "&api_key=" + this.api_key
     }
     const result = await this.mhs.get(searchOptions);
     this.displayedMovies = result.data.results; // assign search result movies to the array to be displayed
     this.heading = "Showing results for: " + this.keyword; // dynamic heading
+  }
+
+  // genre search
+  async getGenreSearch(genreKeyword:string) {
+    const keyword = genreKeyword.replace("genre:", "").trim();
+    const genre_id = await this.getGenreId(keyword);
+    const genreSearchOptions: HttpOptions = {
+      url: "https://api.themoviedb.org/3/discover/movie?api_key=" + this.api_key + "&with_genres=" + genre_id
+    }
+    const result = await this.mhs.get(genreSearchOptions);
+    console.log(result);
+    this.displayedMovies = result.data.results;
+    this.heading = "Showing results by genre: " + keyword; // dynamic heading
+  }
+
+  async getGenreId(keyword:string) {
+    const genreOptions: HttpOptions = {
+      url: "https://api.themoviedb.org/3/genre/movie/list?api_key=" + this.api_key
+    }
+    const result = await this.mhs.get(genreOptions);
+    const genreList = result.data.genres;
+    const genre = genreList.find((g: any) => 
+        g.name.toLowerCase() === keyword.toLowerCase()
+    );
+    return genre.id;
   }
 
   // sends movie's id to storage and opens movie-details page
