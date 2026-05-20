@@ -1,4 +1,4 @@
-# ATU Movie App
+# Movie App Project
 
 > Mobile Applications Development — H.Dip. in Science (Software Development)  
 > ATU, Galway City Campus
